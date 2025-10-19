@@ -25,3 +25,27 @@ LogFileManager::~LogFileManager()
 		}
 	}
 }
+
+void LogFileManager::OpenLogFile(const std::string& filename)
+{
+	if (_logFilesMap.find(filename) != _logFilesMap.end())
+		return;
+
+	auto file = std::make_unique<std::ofstream>(filename, std::ios::app);
+	if (file->is_open())
+		_logFilesMap[filename] = std::move(file);
+	else
+		std::cerr << "(Fail) log file open: " << filename << "\n";
+}
+
+void LogFileManager::WriteLog(const std::string& filename, const std::string& message)
+{
+	auto it = _logFilesMap.find(filename);
+	if (it == _logFilesMap.end() || !it->second || !it->second->is_open())
+	{
+		std::cerr << "Write Fail: file not open : " << filename << "\n";
+		return;
+	}
+	*(it->second) << GetTimeStamp() << " " << message << "\n";
+	it->second->flush();
+}
