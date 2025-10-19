@@ -49,3 +49,34 @@ void LogFileManager::WriteLog(const std::string& filename, const std::string& me
 	*(it->second) << GetTimeStamp() << " " << message << "\n";
 	it->second->flush();
 }
+
+std::vector<std::string> LogFileManager::ReadLogs(const std::string& filename)
+{
+	std::ifstream infile(filename);
+	std::vector<std::string> logs;
+
+	if (!infile.is_open())
+	{
+		std::cerr << "(Fail) readLogs: cannot open " << filename << "\n";
+		return logs;
+	}
+
+	std::string line;
+	while (std::getline(infile, line))
+	{
+		logs.push_back(line);
+	}
+
+	return logs;
+}
+
+void LogFileManager::CloseLogFile(const std::string& filename)
+{
+	auto it = _logFilesMap.find(filename);
+	if (it != _logFilesMap.end() && it->second && it->second->is_open())
+	{
+		it->second->close();
+		_logFilesMap.erase(it);
+	}
+}
+
