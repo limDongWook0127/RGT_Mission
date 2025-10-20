@@ -78,40 +78,47 @@ public:
     }
 
     class Iterator
-{
-private:
-	CircularBuffer* _parent;
-	size_t _index;
-	size_t _remaining;
+    {
+    private:
+        CircularBuffer *_parent;
+        size_t _index;
+        size_t _remaining;
 
-public:
-	Iterator(CircularBuffer* parent, size_t index, size_t remaining)
-		:_parent(parent), _index(index), _remaining(remaining)
-	{
-	}
-	// STL 호환을 위한 필수 typedefs
-	using iterator_category = std::forward_iterator_tag;  // 반복자 카테고리
-	using value_type = T;                                // 값 타입
-	using difference_type = std::ptrdiff_t;               // 거리 계산용 정수형
-	using pointer = T*;                                   // 포인터 타입
-	using reference = T&;                                 // 참조 타입
+    public:
+        Iterator(CircularBuffer *parent, size_t index, size_t remaining)
+            : _parent(parent), _index(index), _remaining(remaining)
+        {
+        }
+        // STL 호환을 위한 필수 typedefs
+        using iterator_category = std::forward_iterator_tag; // 반복자 카테고리
+        using value_type = T;                                // 값 타입
+        using difference_type = std::ptrdiff_t;              // 거리 계산용 정수형
+        using pointer = T *;                                 // 포인터 타입
+        using reference = T &;                               // 참조 타입
 
-	T& operator*()
-	{
-		return _parent->_buffer[_index];
-	}
-	Iterator& operator++()
-	{
-		_index = (_index + 1) % _parent->_capacity;
-		_remaining--;
-		return *this;
-	}
-	bool operator!=(const Iterator& other)
-	{
-		return _remaining != other._remaining;
-	}
-};
+        T &operator*()
+        {
+            return _parent->_buffer[_index];
+        }
+        Iterator &operator++()
+        {
+            _index = (_index + 1) % _parent->_capacity;
+            _remaining--;
+            return *this;
+        }
+        bool operator==(const Iterator &other)
+        {
+            return _parent == other._parent &&
+                   _index == other._index &&
+                   _remaining == other._remaining;
+        }
 
-Iterator begin() { return Iterator(this, _head, _size); }
-Iterator end() { return Iterator(this, _tail, 0); }
+        bool operator!=(const Iterator &other)
+        {
+            return _remaining != other._remaining;
+        }
+    };
+
+    Iterator begin() { return Iterator(this, _head, _size); }
+    Iterator end() { return Iterator(this, _tail, 0); }
 };
