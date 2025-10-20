@@ -8,6 +8,19 @@ RGT_Misson1,2,3(LogFileManager, CircularBuffer, ParallelProcessor)
 - 실행파일	      : main.exe
 - 사용 라이브러리 :	표준 라이브러리(STL)만 사용
 
+RGT_Misson4(LibraryServer)
+설치 환경 정보
+- 개발 환경       :	Visual Studio Code
+- 운영체제(OS)    :	Windows 10
+- 언어            :	Python
+- 사용 프레임워크 : Flask 3.1.2
+- 사용 라이브러리 : requests 2.31.0
+- 실행 방법       : cmd 또는 VS Code 터미널에서 아래 명령어 실행
+- 서버 실행       : 파일설치경로\LibraryServer.py
+- 클라이언트 실행 : 파일설치경로\Test_client.py
+- 포트 번호       : 기본 포트 (http://127.0.0.1:8000)
+- 추가 의존성 설치: pip install flask requests
+
 RGT_Mission1(LogFileManager) 파일 구성 및 역할
 LogFileManager.h :  LogFileManager 클래스 선언부. OpenLogFile, WriteLog, ReadLogs, CloseLogFile 등의 method 정의와 멤버 변수 선언.
 LogFileManager.cpp : LogFileManager 클래스의 구현부. OpenLogFile, WriteLog, ReadLogs, CloseLogFile 등의 실제 동작을 수행.
@@ -22,19 +35,12 @@ RGT_Mission3(ParallelProcessor) 파일 구성 및 역할
 ParallelProcessor.h : 템플릿 기반 병렬 처리 클래스 정의. 내부에서 std::thread, std::future, std::async를 이용해 입력 데이터를 여러 청크로 나누어 병렬로 처리할 수 있도록 구현되어 있음
 main.cpp : ParallelProcessor 클래스를 테스트. 1,000,000개의 픽셀 데이터를 초기화하고, parallel_map()으로 병렬 연산을 수행한 뒤, 동일 로직을 for문으로 순차 처리하여 실행 시간을 비교. 픽셀 데이터를 문자열과 제곱값으로 변환하는 테스트를 포함함
 
-RGT_Misson4(LibraryServer)
-설치 환경 정보
-- 개발 환경       :	Visual Studio Code
-- 운영체제(OS)    :	Windows 10
-- 언어            :	Python
-- 사용 프레임워크 : Flask 3.1.2
-- 사용 라이브러리 : requests 2.31.0
-- 실행 방법       : cmd 또는 VS Code 터미널에서 아래 명령어 실행
-- 서버 실행       : 파일설치경로\LibraryServer.py
-- 클라이언트 실행 : 파일설치경로\Test_client.py
-- 포트 번호       : 기본 포트 (http://127.0.0.1:8000)
-- 추가 의존성 설치: pip install flask requests
-
 RGT_Mission4(LibraryServer) 파일 구성 및 역할
 LibraryServer.py : Flask 기반 REST API 서버. 회원가입, 로그인, 책 등록, 책 삭제, 검색, 대출의 엔드포인트를 구현함. 내부적으로 users, books, loans 리스트를 통해 데이터를 메모리 상에 관리. 간단한 토큰(dummy_token)으로 인증을 흉내냄.
 client_test.py : Python requests 라이브러리를 이용해 서버에 실제 HTTP 요청을 보내는 클라이언트 스크립트. 회원가입, 로그인, 책 등록, 검색, 대출 요청을 순서대로 수행하며 서버 응답(JSON)을 콘솔에 출력함.
+
+주요 구현내용 상세보기 링크 : 
+구현 결과물 녹화 링크 : 
+
+
+
