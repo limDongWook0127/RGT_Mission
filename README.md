@@ -65,4 +65,4 @@
 
 ## 링크
 
-**상세보기 링크:** https://www.notion.so/RGT-29246a68a94980828ccec9edeffe272f?source=copy_link
+**상세보기 링크:** [여기를 클릭하세요](https://www.notion.so/RGT-29246a68a94980828ccec9edeffe272f)
